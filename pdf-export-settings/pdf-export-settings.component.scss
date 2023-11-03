@@ -1,0 +1,390 @@
+@import 'src/variables.scss';
+:host {
+  height: 100%;
+  min-height: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: 60px;
+  .scroll-container {
+    padding: 0 7px 40px 7px;
+  }
+  .fields-container {
+    margin-top: 20px;
+    border: solid 1px $lightbordercolor;
+    border-radius: 8px;
+    background-color: #ffffff;
+    app-upload-logo {
+      display: block;
+      padding: 17px;
+    }
+  }
+  .project-table-top {
+    padding: 10px 17px 10px 17px;
+    border: solid 1px $lightbordercolor;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    .project-table-top-title {
+      h2 {
+        font-family: $mainfont;
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0;
+      }
+    }
+  }
+  .fields-table {
+    padding: 17px 10px;
+    background-color: #ffffff;
+    .field-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      .field-label {
+        flex: 1;
+      }
+      .hide-buttons {
+        margin-left: 10px;
+        text-align: right;
+        /* stylelint-disable-next-line no-descending-specificity */
+        ::ng-deep {
+          .mat-button-toggle-label-content {
+            line-height: 30px;
+            padding: 5px;
+            display: flex;
+
+            .status-icon {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+      }
+    }
+    &:not(:last-child) {
+      border-bottom: solid 1px $lightbordercolor;
+    }
+    &:last-child {
+      border-radius: 0 0 5px 5px;
+    }
+  }
+}
+.pdf-fields-container {
+  &.top {
+    .fields-container {
+      margin-top: 0;
+    }
+  }
+}
+.toolbar-elements-item-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  display: inline-block;
+  &.text {
+    background-image: url(/assets/img/input-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.address {
+    background-image: url(/assets/img/address-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.email {
+    background-image: url(/assets/img/email-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.number {
+    background-image: url(/assets/img/number-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.phone {
+    background-image: url(/assets/img/phone-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.price {
+    background-image: url(/assets/img/price-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.timeslot {
+    background-image: url(/assets/img/timeslot.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.url {
+    background-image: url(/assets/img/url-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.date {
+    background-image: url(/assets/img/date-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.textarea {
+    background-image: url(/assets/img/long-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.custom {
+    background-image: url(/assets/img/custom-c-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.heading {
+    background-image: url(/assets/img/heading-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.divider {
+    background-image: url(/assets/img/divider-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.formStep {
+    background-image: url(/assets/img/multistep_new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.customHtml {
+    background-image: url(/assets/img/custom-h-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.select {
+    background-image: url(/assets/img/drop-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.checkbox {
+    background-image: url(/assets/img/multiple-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.radio {
+    background-image: url(/assets/img/single-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.file {
+    background-image: url(/assets/img/upload-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.unique {
+    background-image: url(/assets/img/id-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.map {
+    background-image: url(/assets/img/map-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.terms {
+    background-image: url(/assets/img/terms-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.signature {
+    background-image: url(/assets/img/signature-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.rating {
+    background-image: url(/assets/img/rating-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.password {
+    background-image: url(/assets/img/password.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.iconsChoice {
+    background-image: url(/assets/img/icons-ch-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.image {
+    background-image: url(/assets/img/image-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.imagesChoice {
+    background-image: url(/assets/img/image-ch-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.stripeProductsChoice {
+    background-image: url(/assets/img/stripe-p-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.stripeCalculator {
+    background-image: url(/assets/img/stripe-c-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.stripeFixedPrice {
+    background-image: url(/assets/img/stripe-f-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.video {
+    background-image: url(/assets/img/video-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.paypal {
+    background-image: url(/assets/img/paypal.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.contactInfoKit {
+    background-image: url(/assets/img/contact-kit-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.addressKit {
+    background-image: url(/assets/img/address-kit-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.jobApplyKit {
+    background-image: url(/assets/img/job-kit-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.matrixScale {
+    background-image: url(/assets/img/matrix-new.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.score {
+    background-image: url(/assets/img/score.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.active {
+  border: 1px solid #000;
+}
+
+i.material-icons {
+  cursor: pointer;
+  margin: 0 2px;
+}
+/* stylelint-disable */
+.status-toggles {
+  border: solid 1px $lightbordercolor;
+  ::ng-deep {
+    .mat-button-toggle {
+      button[aria-pressed='false'] {
+        background-color: white;
+        .status-icon {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          &.edit {
+            background-image: url(/assets/img/edit-lb.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+          &.visibility {
+            background-image: url(/assets/img/show-lb.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+          &.visibility-off {
+            background-image: url(/assets/img/hidden-lb.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+        }
+      }
+      button[aria-pressed='true'] {
+        background-color: $activebutton;
+        box-shadow: inset 0 2px 0 0 $lightbordercolor;
+        .status-icon {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          &.edit {
+            background-image: url(/assets/img/editOFF.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+          &.visibility {
+            background-image: url(/assets/img/showOFF.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+          &.visibility-off {
+            background-image: url(/assets/img/hiddenOFF.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+        }
+      }
+    }
+    .mat-button-toggle + .mat-button-toggle {
+      border-left: 1px solid $lightbordercolor;
+    }
+  }
+}
+/* stylelint-enable */

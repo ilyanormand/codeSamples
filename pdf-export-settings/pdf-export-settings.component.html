@@ -1,0 +1,92 @@
+<div class="scroll-container">
+  <div class="third-row">
+    <div class="inner-content">
+      <div class="pdf-fields-container top">
+        <div class="inner">
+          <div class="fields-container">
+            <div class="project-table-top">
+              <div class="project-table-top-title">
+                <h2>Upload Custom Logo</h2>
+              </div>
+            </div>
+            <app-upload-logo [elementId]="'img_logo'" [projectId]="projectId" [maxFileSize]="1"></app-upload-logo>
+          </div>
+        </div>
+      </div>
+      <div class="submission-info-container">
+        <div class="inner">
+          <ng-container>
+            <div class="fields-container">
+              <div class="project-table-top">
+                <div class="project-table-top-title">
+                  <h2 i18n="@@submissionTable_title">Pdf required fields</h2>
+                </div>
+              </div>
+              <div class="fields-table">
+                <ng-container *ngFor="let item of submissionInfo">
+                  <div class="field-item">
+                    <!-- <i class="toolbar-elements-item-icon"></i> -->
+                    <span class="field-label"> {{ item.text }} </span>
+                    <div class="hide-buttons">
+                      <mat-button-toggle-group #group="matButtonToggleGroup" class="status-toggles" [value]="item.hide.toString()">
+                        <mat-button-toggle
+                          value="false"
+                          aria-label="read only"
+                          [disabled]="item.hide === false"
+                          (change)="buttonClickHandler(item)"
+                        >
+                          <i class="status-icon visibility" matTooltip="Show"></i>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="true" aria-label="hidden" [disabled]="item.hide" (change)="buttonClickHandler(item)">
+                          <i class="status-icon visibility-off" matTooltip="Hide"></i>
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="pdf-fields-container">
+        <div class="inner">
+          <ng-container *ngFor="let step of steps">
+            <div class="fields-container">
+              <div class="project-table-top">
+                <div class="project-table-top-title">
+                  <h2 i18n="@@submissionTable_title">{{ step.label }}</h2>
+                </div>
+              </div>
+              <div class="fields-table" *ngFor="let field of step?.fields">
+                <ng-container *ngFor="let item of fields">
+                  <div *ngIf="item.id === field" class="field-item">
+                    <i class="toolbar-elements-item-icon {{ item.type }}"></i>
+                    <span class="field-label">{{ item.label }}</span>
+                    <div class="hide-buttons">
+                      <mat-button-toggle-group #group="matButtonToggleGroup" class="status-toggles" [value]="item.hide.toString()">
+                        <mat-button-toggle
+                          value="false"
+                          aria-label="read only"
+                          [disabled]="item.hide === false"
+                          (change)="buttonClickHandler(item)"
+                        >
+                          <i class="status-icon visibility" matTooltip="Show"></i>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="true" aria-label="hidden" [disabled]="item.hide" (change)="buttonClickHandler(item)">
+                          <i class="status-icon visibility-off" matTooltip="Hide"></i>
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
