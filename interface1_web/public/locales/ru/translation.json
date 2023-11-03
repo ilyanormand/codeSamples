@@ -1,0 +1,28 @@
+{
+  "menu": {
+    "main": "Главная",
+    "files": "Файлы",
+    "tools": "Инструменты"
+  },
+  "main": {
+    "extruder": {
+      "left": "Левый",
+      "right": "Правый"
+    },
+    "temperature": {
+      "active": "Активная",
+      "current": "Текущая"
+    },
+    "sliderTemperature": "Температура",
+    "cartridge": "Катридж",
+    "blowing": "Обдув",
+    "extrusion": "Экструзия",
+    "camera": "Камера",
+    "table": "Стол",
+    "speed": "Скорость",
+    "printSpeed": "Скорость печати",
+    "convection": "Конвекция",
+    "babystep": "Babystep",
+    "change": "Изменить"
+  }
+}

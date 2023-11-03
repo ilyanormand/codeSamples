@@ -1,0 +1,28 @@
+{
+  "menu": {
+    "main": "Main",
+    "files": "Files",
+    "tools": "Tools"
+  },
+  "main": {
+    "extruder": {
+      "left": "Left",
+      "right": "Right"
+    },
+    "temperature": {
+      "active": "Active",
+      "current": "Current"
+    },
+    "sliderTemperature": "Temperature",
+    "cartridge": "Cartridge",
+    "blowing": "Blowing",
+    "extrusion": "Extrusion",
+    "camera": "Camera",
+    "table": "Table",
+    "speed": "Speed",
+    "printSpeed": "Print Speed",
+    "convection": "Convection",
+    "babystep": "Babystep",
+    "change": "Change"
+  }
+}
