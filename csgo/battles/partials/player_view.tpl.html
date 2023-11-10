@@ -1,0 +1,40 @@
+<div class="player_container">
+  <div class="mt-5 mb-2" ng-class="player_info_class">
+    <div class="px-10 player_info_container" context-menu="!!player.id" type="person" data="player" ng-class="player_info_class">
+      <div class="player_avatar mx-3" avatar="player"></div>
+      <div class="player_name_container">
+        <span class="text-14 text-white player_name">{{player.name}}</span>
+        <credits amount=player.winnings></credits>
+        <!-- <span class="num amount"><span svg-icon="ico-cash_bag" class="credit_icon"></span>{{player.winnings | number: 2}}</span> -->
+      </div>
+    </div>
+    <div ng-class="player_info_class">
+      <button class="button cancel_button" ng-if="creator && player.position === 0 && game.state === 0 && game.playerCount === 1"
+        ng-click="$parent.$parent.cancelBattle()"
+        ng-disabled="glob.cancelInProgress"
+        ng-loading="glob.cancelInProgress"
+        ng-class="player_info_class">
+        <span>{{'battles.cancel' | translate}}</span>
+      </button>
+      <button class="button submit_button" ng-if="creator && !player.id" ng-class="player_info_class"
+        ng-click="$parent.$parent.callBot(player.position)"
+        ng-disabled="glob.callbotInProgress"
+        ng-loading="glob.callbotInProgress">
+        <!-- <span svg-icon="ico-add-bot" ></span> -->
+        <span>{{'battles.call_bot' | translate}}</span>
+      </button>
+      <button class="button submit_button" ng-if="!creator && !player.id && !playerInGame" ng-class="player_info_class"
+        ng-click="$parent.$parent.joinBattle(player.position)"
+        ng-disabled="glob.joinInProgress"
+        ng-loading="glob.joinInProgress">
+        <!-- <span svg-icon="ico-add-bot" ></span> -->
+        <span>{{'battles.join' | translate}} {{game.cost | number: 2}}</span>
+      </button>
+    </div>
+  </div>
+  <div class="casespin_container pt-2"
+    ng-class="{roulette_init:caseBindings[player.position].instance.status, invisible: game.state === 0 || game.state > 2}"
+    cases-roulette
+    binding="caseBindings[player.position]">
+  </div>
+</div>

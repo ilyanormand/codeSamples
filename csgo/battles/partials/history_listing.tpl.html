@@ -1,0 +1,58 @@
+<div dot-menu listing="row" open-game="openGame" make-url="constructUrl" make-tweet="makeTweet"></div>
+
+
+<div class="head" ng-class="$root.battleStatus(row).class">
+    <span class="inline_data">
+      
+      <span class="time">{{row.endTime || row.time | moment:'fromNow'}}</span>
+      <span class="id">
+        {{'history.game-id' | translate}} 
+       
+          
+        <num class="linklike" ng-click="openProvably(row, type)">{{row.id}}</num>
+       
+      </span> 
+
+    </span>
+    <div class="result_status num_stat result_state flex items-center game_state">
+      <span class="descr px-2">{{'history.opening_state' | translate}}</span>
+      <span class="main text-16">{{$root.battleStatus(row).name | translate}}</span>
+    </div>
+    
+</div>
+
+<div class="inline-content narrower pt-4" ng-class="$root.battleStatus(row).class">
+
+  <div class="battle_player_list px-0" player-list game="row" show-tooltip="true"></div>
+  <div class="battle_cases_list px-0" cases-list items="row.cases" limit="5"></div>
+  <span class="round-text"><span class="text-16">{{row.cases.length | number: 0}}</span> {{'history.rounds' | translate}}</span>
+
+    <div class="num_stat num_stat_fixed">
+        <!-- <div class="num">{{ row.cost | number:2 }}</div> -->
+        <credits amount="row.cost" text-size="18"></credits>
+        <div class="descr">{{'history.cost' | translate}}</div>
+    </div>
+
+    <div class="num_stat w-140">
+        <!-- <div class="num">{{ row.totalUnboxed | number:2 }}</div> -->
+        <credits amount="row.totalUnboxed" text-size="18"></credits>
+        <div class="descr">{{'history.total_unboxed' | translate}}</div>
+    </div>
+
+    <div class="buttons_wrapper" ng-class="::{disabled: $root.battleStatus(row).class == 'error'}">
+
+      <div ng-click="makeTweet(row)" class="secondary_btn">
+        <span svg-icon="ico-twitter"></span>
+        <span>{{'app.share' | translate}}</span>          
+      </div>
+      
+
+      <button class="button dark_active_button"  ng-click="openGame(row, $event)">
+        <div>
+          <span svg-icon="ico-eye"></span>
+          <span>{{'coinflip.watch' | translate}}</span>
+        </div>
+      </button>
+    </div>
+    
+</div>

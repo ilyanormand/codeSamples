@@ -1,0 +1,21 @@
+<div class="col-sm-12">
+  <div class="flex justify-center items-center player_avata_container">
+    <div class="flex" context-menu="!!player.id" type="person" data="player">
+      <div class="player_avatar mx-3" avatar="player"></div>
+      <div class="flex-column">
+        <span class="text-14 text-white">{{player.name}}</span>
+        <credits amount="player.winnings"></credits>
+        <!-- <span class="num amount"><span svg-icon="ico-cash_bag" class="credit_icon"></span>{{player.winnings | number: 2}}</span> -->
+      </div>
+    </div>
+  </div>
+  <!-- <div class="flex-column justify-center mt-1 px-6 round_info_container">
+    <div class="round_info items-center justify-center flex h4 font-semibold" ng-repeat="x in [].constructor(roundLimit) track by $index">
+      {{ $index + 1 }}
+    </div>
+  </div> -->
+  <div class="flex flex-wrap justify-center mt-1 pt-1 round_info_container" ng-class="{'right_border': player.position < playerLimit-1, 'invisible': (!openings || !openings.length)}">
+    <div vgo-skin show-price="false" class="item mb-1 angular-animate" ng-repeat="item in normalizedItems" title="{{item.name}}" item="item" ng-class="'p' + playerLimit">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="battles-listing typical_history_listing" ng-class="::{my_listing:listing.me, wfoot: templ_type == 'history'}"> 
+	
+
+	<div dot-menu listing="listing" make-url="$root.constructBattlesUrl" make-tweet="$root.makeBattlesTweet"></div>
+
+	<div class="head">
+	    <!-- <span class="type">{{row.type}}</span> -->
+	    <span class="inline_data">
+	    	
+	    	<span class="wager">{{'coinflip.wager' | translate}}: <num><span class="main">{{listing.creatorBet.total | number:3}}</span> ({{ listing.creatorBet.total * 0.9 | number:3 }} - {{ listing.creatorBet.total * 1.1 | number:3 }})</num></span>
+	      	<span class="time">{{listing.endTime | moment:'fromNow'}}</span>
+	    </span>	    
+	</div>
+
+	<div class="inline-content">
+		
+
+		<div class="player-sctn" player-list game="listing">
+		</div>
+
+		<div class="cases-sctn mr-2" cases-list items="listing.cases" limit="6">
+			
+		</div>
+
+		<div class="num_stat cases_stat">
+			<num class="main">{{listing.cases.length}}</num>
+			<div class="descr">Cases</div>
+		</div>
+
+		<div class="jinxed" ng-class="{active: listing.jinxed}" uib-tooltip="{{'battles.jinxed_expl' | translate}}" tooltip-append-to-body="true" tooltip-enable="listing.jinxed"></div>
+		
+
+		<!-- <div class="winner_stats" ng-if="::templ_type=='history'">
+			<div class="center_wrap">
+				<div class="title">{{'coinflip.winner' | translate}}</div>
+				<div class="name" context-menu type="person" data="listing.winner">
+					<span>{{listing.winner.name}}</span>
+				</div>
+				<div class="won">
+					<i>{{'coinflip.won' | translate}}</i> 
+					<span class="total">{{listing.total | number:3}}</span> 
+					
+				</div>
+			</div>									
+		</div> -->
+
+		<div class="buttons-sctn">
+			<div ng-if="listing.state===0" class="buttons_wrapper">
+				
+				<button class="button submit_button"
+					ng-click="state.go('app.battles.game',{id:listing.id,listing:listing})"
+					ng-disabled="listing.joinInProgress"
+					ng-loading="listing.joinInProgress">
+					<span ng-if="listing.creator !== $root.user.id && !playerIsInGame(listing)">{{'battles.join' | translate}} {{listing.cost | number: 2}}</span>
+					<span ng-if="listing.creator === $root.user.id">View/Manage</span>
+					<span ng-if="listing.creator !== $root.user.id && playerIsInGame(listing)">View</span>
+				</button>
+			</div>
+			
+			
+			
+			<div ng-if="listing.state!==0" class="buttons_wrapper">
+
+				<button class="button dark_active_button" ng-click="state.go('app.battles.game',{id:listing.id,listing:listing})">
+					<div>
+						<span svg-icon="ico-eye"></span>
+						<span>{{'battles.watch' | translate}}</span>
+					</div>
+
+					<div class="countdown_bar" ng-if="listing.historyTimer">
+						<div class="in" countdown-bar="listing.historyTimer.duration">
+								
+						</div>
+					</div>
+				
+				</button>
+				<div class="flex mt-2 text-center justify-center unboxed-text items-center" ng-if="listing.currentUnboxedValue">
+					<span class="pr-1">{{'battles.unboxed' | translate}} </span>
+					<credits amount="listing.currentUnboxedValue"></credits>
+					<!-- <span svg-icon="ico-cash_bag" class="credit_icon"></span>
+					<span class="num amount" >{{listing.currentUnboxedValue | number: 2}}</span> -->
+				</div>
+				
+			</div>
+			
+
+		</div>
+	</div>
+
+	<div class="foot" ng-if="::templ_type == 'history'">
+	</div>
+
+	
+
+	
+</div>

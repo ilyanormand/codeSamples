@@ -1,0 +1,163 @@
+<div class="battles_game_view" ng-if="isReady">
+  <div class="header">
+    <div class="header_left">
+      <button class="button dark_active_button back_button" ng-click="state.go('app.battles.listings')"><span svg-icon="ico-arrow-back"></span><span class="show-on-pc"> to Listings</span></button>
+      <div class="value_info">
+        <div class="top">
+          <span class="h5 mb-0 mt-1 font-bold text-white hide-on-mobile">{{'battles.view_value' | translate}}</span>
+          <span class="h6 mb-0 mt-1 font-bold text-white show-on-mobile">{{'battles.view_value_short' | translate}}</span>
+        </div>
+        <div class="bottom mt-1">
+          <credits amount="game.cost"></credits>
+          <!-- <span class="num amount"><span svg-icon="ico-cash_bag" class="credit_icon"></span>{{game.cost | number: 2}}</span> -->
+        </div>
+      </div>
+      <div class="flex flex-column">
+        <span svg-icon="ico-hide" class="private" ng-if="game.private" uib-tooltip="{{'battles.private_expl' | translate}}" tooltip-append-to-body="true"></span>
+        <div class="jinxed active" ng-if="game.jinxed" uib-tooltip="{{'battles.jinxed_expl' | translate}}" tooltip-append-to-body="true"></div>
+      </div>
+    </div>
+    <div class="header_middle">
+      <div class="round_info round_info_not_replay" ng-if="game.state === 3 || game.state === 4">
+        <div class="top text-20 font-bold uppercase text-white" translate="battles.case" translate-value-current="{{game.currentRound + 1}}" translate-value-total="{{game.cases.length}}"></div> 
+        <div class="bottom">
+          <div class="mx-1 marker" ng-repeat="x in [].constructor(game.cases.length) track by $index" ng-class="{'active': $index < game.currentRound + 1}" uib-tooltip="{{$index + 1}}">
+          </div>
+        </div>
+      </div>
+      <div class="round_info" ng-if="game.state >= 0 && game.state <= 2">
+        <div class="top text-20 font-bold uppercase text-white" translate="battles.case" translate-value-current="{{game.currentRound + 1}}" translate-value-total="{{game.cases.length}}"></div> 
+        <div class="bottom">
+          <div class="mx-1 marker" ng-repeat="x in [].constructor(game.cases.length) track by $index" ng-class="{'active': $index < game.currentRound + 1}" uib-tooltip="{{$index + 1}}">
+          </div>
+        </div>
+      </div>
+      <div class="case_displays flex">
+        <div class="case_display current_case">
+          <img ng-src="{{game.cases[game.currentRound].img}}" title="{{game.cases[game.currentRound].name}}" />
+          <div class="info">
+            <span class="text-white">{{game.cases[game.currentRound].name}}</span>
+            <credits amount="game.cases[game.currentRound].cost"></credits>
+            <!-- <span class="num amount"><span svg-icon="ico-cash_bag" class="credit_icon"></span>{{game.cases[game.currentRound].cost | number: 2}}</span> -->
+          </div>
+        </div>
+        <div class="case_display next_case hide-on-mobile" ng-if="game.currentRound + 1 < game.cases.length">
+          <img ng-src="{{game.cases[game.currentRound + 1].img}}" title="{{game.cases[game.currentRound + 1].name}}" />
+        </div>
+        <div class="case_display next_case_2 hide-on-mobile" ng-if="game.currentRound + 2 < game.cases.length">
+          <img ng-src="{{game.cases[game.currentRound + 2].img}}" title="{{game.cases[game.currentRound + 2].name}}"/>
+        </div>
+        <div class="case_display next_case_3 hide-on-mobile" ng-if="game.currentRound + 3 < game.cases.length">
+          <img ng-src="{{game.cases[game.currentRound + 3].img}}" title="{{game.cases[game.currentRound + 3].name}}" />
+        </div>
+      </div>
+    </div>
+    <div class="header_right">
+      <button ng-if="game.state === 3 || game.state === 4" class="button dark_active_button back_button mr-2" ng-click="replayGame()"><span svg-icon="ico-refresh"></span><span class="show-on-pc"> Replay</span></button>
+      <div class="flex flex-column">
+        <div class="linklike text-right" ng-click="modals.gameProvablyFair({game:'battles',gameData:game})">
+          {{'app.dropdown.verifications' | translate}}
+        </div>
+        <div class="btn-group mt-1" uib-dropdown>
+          <button id="split-button" type="button" class="btn" ng-click="$root.copyUrl = $root.constructBattlesUrl(game)" clipboard text="$root.constructBattlesUrl(game)" on-copied="$root.clipboard_success_cb();" on-error="$root.clipboard_fail_cb(err);" class="copy_url"><span svg-icon="ico-share"></span><span class="share-text-button">{{'battles.share' | translate}}</span></button>
+          <button type="button" class="btn" uib-dropdown-toggle>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+            <li class="py-1" role="menuitem"><div ng-click="$root.copyUrl = $root.constructBattlesUrl(game)" clipboard text="$root.constructBattlesUrl(game)" on-copied="$root.clipboard_success_cb();" on-error="$root.clipboard_fail_cb(err);"><span svg-icon="ico-copy"></span> {{'coinflip.copy_url' | translate}}</div></li>
+            <li class="py-1" role="menuitem" ng-if="playerIsInGame()"><div ng-click="shareToChat()"><span svg-icon="ico-share"></span> {{'battles.share_in_chat' | translate}}</div></li>
+          </ul>
+        </div>
+        <!-- <div ng-click="$root.copyUrl = $root.constructBattlesUrl(game)" clipboard text="$root.constructBattlesUrl(game)" on-copied="$root.clipboard_success_cb();" on-error="$root.clipboard_fail_cb(err);" class="copy_url">
+          <span svg-icon="ico-share"></span>
+          <span>{{'coinflip.copy_url' | translate}}</span>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="main_game_view">
+    <div class="player_views row" 
+    ng-class="{
+      'large': game.playerLimit > 3, 
+      'extended': game.playerLimit === 3, 
+      'waiting': game.state === 1,
+      'game_finished': game.state === 3 || game.state === 4
+    }">
+      <div class="waiting_random text-center text-white" ng-if="game.state === 1">
+        <span>{{'battles.waiting_random' | translate}}</span>
+      </div>
+      <battle-player-view class="player_view col-sm-6 col-xs-6" ng-repeat="player in game.players" player-limit="game.playerLimit" player="player" ng-class="'quad_' + $index" game="game" case-bindings="caseBindings"></battle-player-view>
+    </div>
+    <div class="player_data mt-5 row">
+      <div class="precontainer col-md-3 col-sm-6 col-xs-12"
+      ng-class="{
+      'col-md-3': game.playerLimit > 3,
+      'col-sm-6': game.playerLimit > 3,
+      'col-xs-12': game.playerLimit > 3,
+      'col-md-4': game.playerLimit === 3,
+      'col-sm-6': game.playerLimit === 3,
+      'col-xs-12': game.playerLimit === 3,
+      'col-md-6': game.playerLimit === 2,
+      'col-sm-6': game.playerLimit === 2,
+      'col-xs-12': game.playerLimit === 2,
+      }" 
+      ng-repeat="player in game.players">
+        <battle-player-data-view player="player" round-limit="game.cases.length" openings="game.openings[player.id]" player-limit="game.playerLimit"></battle-player-data-view>
+        <img 
+          src="/img/vs_32.png" alt="" 
+          class="vs_icon items-center justify-center" 
+          ng-if="(game.mode === 'ffa' && game.players.length > $index + 1) || (game.mode === 'team' && game.players.length / ($index+1) === 2)"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="main_gameover_view" ng-if="game.state === 3 || game.state === 4">
+    <div class="flex flex-column winners">
+      <div class="flex particle-group justify-center">
+        <div class="particles small_particles sizeup" item-particles type="small" item="particleItem" rarity="2" active="!$root.optimised"></div>
+        <div class="particles big_particles sizeup" item-particles type="big" item="particleItem" rarity="2" active="!$root.optimised"></div>
+      </div>
+      <div class="flex flex-column text-center">
+        <span class="uppercase winners-text">{{game.winners.length > 1 ? 'Winners!' : 'Winner!'}}</span>
+        
+        <div class="winning-player">
+          <div class="flex justify-left my-1" ng-repeat="player in game.winners">
+            <div class="flex" context-menu="!!player.id" type="person" data="player">
+              <div class="player_avatar mx-3" avatar="player"></div>
+              <div class="flex flex-column flex-1">
+                <span class="text-14 text-white">{{player.name}}</span>
+                <credits amount="player.winnings"></credits>
+                <!-- <span class="flex num amount"><span svg-icon="ico-cash_bag" class="credit_icon"></span>{{player.winnings | number: 2}}</span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-column mt-10 justify-center">
+      <button class="button submit_button"
+        ng-click="createSameBattle()"
+        ng-disabled="glob.createInProgress"
+        ng-loading="glob.createInProgress">
+        <span>{{'battles.create_same' | translate}} {{game.cost | number: 2}}</span>
+      </button>
+      <button class="button outline_button mt-1"
+        ng-click="shareToChat()"
+        ng-disabled="glob.shareInProgress"
+        ng-loading="glob.shareInProgress"
+        ng-if="playerIsInGame()">
+        <span>{{'battles.share_in_chat' | translate}}</span>
+      </button>
+      <button class="button outline_button mt-1"
+        ng-click="state.go('app.battles.listings')"
+        ng-if="!playerIsInGame()">
+        <span>{{'battles.return_to_listing' | translate}}</span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="loading_screen angular-animate" ng-if="!isReady">		
+  <div class="load-wrapper" ng-include="'app/partials/loader_spinner.tpl.html'">			
+  </div>
+</div>

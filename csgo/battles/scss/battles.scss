@@ -1,0 +1,1089 @@
+.battles_view {
+  color: $tinted_font_light;
+  $pad: 5px;
+  padding:0 10px;
+  max-width: 1480px;
+  height: 100%;
+  margin: 0 auto;
+  $csidebar_width: 280px;
+	
+  .jinxed {
+    &.active {
+      height: 2rem !important;
+      width: 2rem !important;
+      background-image: url(../img/jinxed.png);
+      background-repeat: round;
+    }
+  }
+
+  .invisible {
+    opacity: 0;
+  }
+
+  button {
+    font-family: Roboto;
+    text-align: center !important;
+    font-weight: 400;
+  }
+
+  h1 {
+    text-align: center;
+    color: $white;
+    font-weight: 300;
+    margin: 25px;
+
+    @media (max-width: 420px) {
+      font-size: 24px;
+    }
+  }
+
+  select {
+    cursor: pointer;
+  }
+
+  .desc {
+    font-size: 14px;
+    // max-width: 500px;
+    margin: 0 auto;
+  }
+
+  
+
+  input, select {
+    
+    display: inline-block;
+    max-width: 250px;
+    
+    font-size: 15px;
+    font-weight: 400;
+    
+    
+
+    
+  }
+
+  .listings, .coinHistory {
+    padding-bottom: 5rem;
+
+    
+  }
+  
+  .mylistings, .coinHistory {
+    margin-top: 40px;
+  }
+
+  .coinHistory {
+    .dot_menu {
+      .remove_listing {
+        display: none;
+      }
+    }
+    
+  }
+
+  .listings_list {    
+    &.ng-enter {
+      animation: fadeIn .3s;
+    }
+  }
+
+  .listings_view {    
+    margin-top: 25px;
+    padding-right: $csidebar_width;
+    min-height: 1450px;
+  }
+
+  .typical_tabs {
+    margin: 45px 0 20px 0;
+  }
+
+  .filters {
+    margin-bottom: 20px;
+    > * {
+      display: inline-flex;
+      vertical-align: middle;
+    }
+    
+    .sort_order_button {
+      margin-left: 10px;
+    }
+  }
+// old } .battles_view
+
+.battles_game_view {
+  padding-top: 1rem;
+  .back_button {
+    opacity: 0.75;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .header {
+    // display: grid;
+    // grid-template-columns: 15% 20% 50% 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .header_left {
+      display: flex;
+      .private {
+        height: 2rem;
+        width: 2rem;
+        svg {
+          color: transparentize($accent_light, 0.95);
+        }
+      }
+    }
+    .header_middle {
+      display: flex;
+      justify-content: center;
+      // padding-left: 3rem;
+      // padding-right: 3rem;
+      flex: 1;
+      // box-sizing: border-box;
+
+      .case_display {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 5px;
+
+        &.current_case {
+          img {
+            width: 60px;
+            height: 60px;
+          }
+        }
+        &.next_case {
+          img {
+            width: 50px;
+            height: 50px;
+            filter: grayscale(100%);
+          }  
+        }
+        &.next_case_2 {
+          img {
+            width: 40px;
+            height: 40px;
+            filter: grayscale(100%);
+          }
+        }
+        &.next_case_3 {
+          img {
+            width: 30px;
+            height: 30px;
+            filter: grayscale(100%);
+          }
+        }
+
+        .info {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+    }
+    .header_right {
+      display: flex;
+      // align-items: flex-end;
+      // justify-content: flex-end;
+      .copy_url {
+        padding: 0.2rem;
+        margin-top: 0.2rem;
+        
+        cursor: pointer;
+      }
+
+      .btn-group {
+        display: flex;
+        .btn {
+          padding: 0.3rem;
+          flex-direction: row;
+          background-color: $vsdark;
+          height: unset;
+        }
+        .dropdown-menu {
+          padding: 0.5rem;
+          left: -3rem;
+          li {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .round_info {
+      display: flex;
+      font-family: Roboto;
+      align-items: center;
+      // justify-content: center;
+      flex-direction: column;
+      max-width: 31rem;
+      .bottom {
+        margin-top:10px;
+        display: inline-flex;
+        flex-wrap: wrap;
+        flex: 1;
+        .marker {
+          height: 3px;
+          width: 10px;
+          background-color: $line_dark;
+          &.active {
+            background-color: $accent;
+          }
+        }
+      }
+    }
+  } // .header
+
+  .main_game_view {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 3px;
+    width: 100%;
+
+    .waiting_random {
+      position: absolute;
+      font-size: 1.5rem;
+      top: 8rem;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      color: $white;
+      opacity: 1 !important;
+    }
+    .without_players{
+      height: 30rem !important;
+    }
+
+    .player_views {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      height: 30rem;
+      
+      &.large {
+        flex-direction: column;
+      }
+      &.waiting {
+        opacity: 0.6;
+      }
+      
+      .player_view {
+        width: 50%;
+        flex: none;
+        height: 100%;
+        border-color: #262A40;
+        border-width: 0.3rem;
+        border-style: none;
+        &.quad_0 {
+          border-right-style: solid;
+          // padding-right: 0.2rem;
+        }
+        &.quad_1 {
+          border-left-style: solid;
+        }
+      }
+
+      &.extended {
+        height: 44rem;
+        .player_view {
+          height: 50%;
+          &.quad_0 {
+            width: 100%;
+            border-bottom-style: solid;
+            border-right-style: none;
+          }
+          &.quad_1 {
+            border-top-style: solid;
+            border-right-style: solid;
+            // padding-right: 0.2rem;
+            // border-bottom-style: solid;
+            border-left-style: none;
+          }
+          &.quad_2 {
+            border-top-style: solid;
+            // padding-right: 0.2rem;
+            border-left-style: solid;
+          }
+        }
+      }
+      &.large {
+        height: 44rem;
+        .player_view {
+          height: 50%;
+          &.quad_0, &.quad_2 {
+            border-bottom-style: solid;
+            // padding-bottom: 0.2rem;
+          }
+          &.quad_1, &.quad_3 {
+            border-top-style: solid;
+            // padding-bottom: 0.2rem;
+          }
+          &.quad_1 {
+            border-left-style: none;
+            border-right-style: solid;
+          }
+          &.quad_2, &.quad_3 {
+            border-left-style: solid;
+          }
+        }
+      }
+
+      
+    }
+
+    .player_data {
+      // justify-content: space-between;
+      // display: flex;
+
+      .precontainer {
+        // flex: 1;
+        // display: flex;
+        // position: relative;
+        .player_avata_container{
+          margin-top: 15px;
+        }
+        .vs_icon {
+          right: -1rem;
+          top: 15px;
+          display: flex;
+          width: 2rem;
+          height: 2rem;
+          position: absolute;
+          z-index: 1;
+        }
+
+        .round_info_container {
+          // gap: 0.6rem;
+          border-color: $line_dark;
+          border-width: 0.25rem;
+          border-style: solid;
+          // border-top-style: solid;
+          &.right_border {
+            border-right-style: solid;
+          }
+          .item {
+            &.ng-enter {
+              animation: fadeInRight .5s;
+            }
+            background: transparentize($white, 0.95);
+            margin-left: 0.12rem;
+            margin-right: 0.12rem;
+            // width: 7rem;
+            font-size: 0.7rem;
+            &.p2 {
+              width: 24%;
+            }
+            &.p3 {
+              width: 32%;
+            }
+            &.p4 {
+              width: 48%;
+            }
+          }
+        }
+
+        .round_info {
+          width: 100%;
+          background-color: $bg_dark;
+          aspect-ratio: 2.7;
+          border-radius: 0.5rem;
+          font-family: Roboto;
+        }
+      }
+    }
+
+
+    .player_container {
+      height: 100%;
+      position: relative;
+      display: block;
+      flex-grow: 1;
+      flex-direction: column;
+      align-items: flex-start;
+      button {
+        height: 2.85rem;
+        width: 8.2rem;
+      }
+
+      .player_info {
+        display: flex;
+        flex-direction: row;
+        margin-right: auto;
+        text-align: left;
+      }
+      .player_info_right {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-left: auto;
+        text-align: right;
+      }
+
+      .player_name_container {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  } // main_game_view
+
+  .main_gameover_view {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    top: 8rem;
+    left: 0;
+    right: 0;
+    .winners {
+      width: 18rem;
+      height: 18rem;
+      // text-align: center;
+      border-radius: 50%;
+      background: transparentize($accent_light, 0.95);
+      border-color: transparentize($accent, 0.5);
+      border-width: 0.8rem;
+      border-style: solid;
+
+      .particle-group {
+        top: 6rem;
+        position:relative;
+
+        .small_item_particle {
+          $s: 5px;
+          width: $s;
+          height: $s
+        }
+      }
+      .winners-text {
+        font-size:2rem;
+        position: relative;
+        top: 2.5rem;
+        color: $white;
+      }
+      .winning-player {
+        margin-top: 3rem;
+        padding-left: 2rem;
+      }
+    }
+  } // main_gameover_view
+
+  .inline-content {
+    display: inline-flex;
+    align-content: space-between;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .value_info {
+    padding: 0 20px;
+  }
+  .num {
+    color: $accent;
+  }
+} // .battles_game_view
+
+.battles-listing-wrapper {
+  &.ng-enter {
+    animation: none;
+    transition: 0s;
+  }
+  &.ng-leave {
+    @extend .fadeIn;
+    animation-duration: .3s;
+    animation-direction: reverse;
+  }  
+}
+
+
+.battles-listing {
+  $pcontainer: 300px;
+  width: 100%;  
+  background-color: rgba(255, 255, 255, 0.03);  
+  border-radius: 3px;  
+  position: relative; 
+  
+  .cases_stat {
+    min-width: 2rem;
+    max-width: 4.2rem;
+    margin-left: -1rem;
+  }
+  
+  .dot_menu {
+    .watch_link {
+      display: none;
+    }
+    .twitter_share {
+      display: block;
+    }
+  }
+  
+  .head {
+    min-height: 20px;
+    .wager {
+      num {
+        color: inherit;
+      }
+      .main {
+        color: $white;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .create-head {
+    .buttons-sctn {
+      button {
+        min-width: 200px;
+      }
+    }
+    .checkbox-container{
+      .tooltip{
+        position: absolute;
+      }
+    }
+
+    .call_to_action {
+      margin-bottom: 5px;
+      .tooltip-inner {
+        max-width: 22rem;
+      }
+    }
+    .typical_dropdown_wrapper {
+    
+      // $ddwidth: 200px;
+      .ico-down-arrow {
+        margin-left: -25px;
+      }
+
+
+      button {
+        // width: $ddwidth;
+        width: $pcontainer;
+        padding: 0;
+        padding-right: 20px;
+      }
+      ul {
+        width: $pcontainer;
+          padding:0;
+        // margin: 0;
+        // width: $ddwidth;
+        > li {
+          text-align: center;
+          width: 100%;
+          padding: 0;
+          .player-sctn{
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .player-sctn {
+      .bet_items_input {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    .buttons-sctn {
+      width: 20%;
+    }
+  }
+
+  .typical_history_listing {
+    > * {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .inline-content {
+    justify-content: space-between;
+    > * {
+      padding-left: 0;
+      padding-right: 0;
+      // flex-grow: 1;
+      // padding: 22px;    
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  
+  .num, num {
+    color: $white;    
+  }
+
+  .player_selection {
+    scale: 70%;
+    // .bet_items_input {
+    //   width: $pcontainer;
+    // }
+  }
+
+  .player-sctn {
+    .bet_items_input {
+      background: none;
+      width: $pcontainer;
+      justify-content: center;
+      padding: 0;
+      .items_holder {
+        text-align: center;
+      }
+      .item_thumb {
+        width: 45px;
+        height: 45px;
+      }
+    }
+
+    .item_thumb {
+      border-radius: 50%;
+    }
+  }
+
+  .cases-sctn {
+    .bet_items_input {
+      width: 485px;
+      justify-content: center;
+      .items_holder {
+        height: auto;
+        min-height: auto;
+      }
+      .item_thumb {
+        width: 70px;
+        height: 70px;
+        &.current {
+          animation: swing 1.5s infinite;
+        }
+      }
+      .thumb_wrap .amount {
+        right: 30px;
+        bottom: -10px;
+      }
+    }
+  }
+  
+  .wager-sctn {
+    align-items: flex-start;
+    .wager {
+      margin: 1.3rem 0;
+    }
+  }
+
+
+  .wager_stats,.wager, .winner_stats{
+    text-align: left;    
+    white-space: nowrap;    
+    width: 150px;
+    align-items: flex-start;
+
+    .title{
+      
+      font-size: 14px;
+      font-style: italic;
+      line-height: 1.14;
+      letter-spacing: 0.5px;      
+    }
+
+    .amount, .name{
+      font-size: 24px;
+      letter-spacing: 0.6px;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color .3s;
+      color: $white;
+      span{
+        font-family: Roboto;
+        font-weight: bold;        
+      }
+      a {
+        
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: 0.5px;
+        color: $accent;
+        text-decoration: underline;
+      }
+    }
+
+    .needs, .won{
+      font-family: Roboto;
+      font-size: 14px;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 14px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      color: $tinted_font_light;
+
+      i { 
+        font-style: italic; 
+        font-weight: normal;
+      }
+    }
+  }
+  
+  .stats-sctn {
+    min-width: 162px;
+  }
+
+  .winner_stats {    
+    .center_wrap {
+      max-width: 100%;
+      .name {
+        font-size: 20px;        
+      }
+    }
+    .won {
+      .total {
+        color: $white;
+      }
+    }
+  }
+
+  .buttons-sctn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    // span{
+    //   font-family: "Roboto";
+    // }
+    button {
+      min-width: 160px;
+      padding: 0 1rem;
+    }
+
+  }
+  
+
+  .countdown_bar {
+    @include absolute(null,0,0,0);
+    height: 3px;
+    width: 100%;
+    background-color: transparentize($accent,0.75);
+    > .in {
+      @include absolute(0,0,0,0);
+      height: 100%;
+      width: 100%;
+      background-color: $accent;
+      transform-origin: 100% 50%;
+    }
+  }
+  
+
+  &.myListing {
+
+    &:before {
+      content: '';
+      @include absolute(0,null,0,0);
+      width: 3px;
+      background-color: $accent;
+      opacity: 0.45;
+    }
+    &:after {
+      content: '';
+      @include absolute(0,0,0);
+      width: 3px;
+      background-color: $accent;
+      opacity: 0.45;
+    }
+    
+    
+  }
+  .vs_icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+  }
+
+  .unboxed-text {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+} // end battles_listing
+
+
+.create_placeholder {  
+  .player-sctn {
+    .imgsctn {
+      cursor: pointer;
+    }
+  }  
+}
+
+
+.battles-history-listing {
+  .head {
+    .wager {
+      display: none;
+    }
+  }
+}
+
+.battles-active-listing {
+  .head {
+    .time, .wager {
+      display: none;
+    }
+  }
+}
+
+
+  .casespin_container {
+    min-height: 204px;
+    position: relative;
+    overflow: hidden;
+    &.roulette_init {
+      min-height: auto;
+    }
+    .particles {
+      @include absolute(0,0,0,0);
+      // opacity: 0.5;
+      transform: translateZ(0);
+      .particle {
+        left: 0;
+        bottom: 0;
+      }
+    }
+
+    &:before, &:after {
+      content: '';    
+      height: 33%;    
+      background-image: radial-gradient(closest-side, transparentize($bg_dark,0.4), transparent);
+    }
+    
+    &:before {    
+      @include absolute(0,0,null,0);    
+      transform: translateY(-55%);    
+    }
+    &:after {   
+      @include absolute(null,0,0,0);
+      transform: translateY(55%);   
+    }
+  }
+
+
+  .cases_sidebar {
+		
+		width: $csidebar_width;	
+		@include absolute(0,0);	
+		overflow: hidden;
+		margin-right: $pad;
+		padding-left: $pad;
+    // max-height: 1337px;
+	}
+
+  .cases_feed {
+		width: 100%;
+		margin-top: 10px;
+		
+		$feed_card_h: 100px;
+		.feed_card_wrapper {
+			$h: $feed_card_h;			
+			height: $h;
+			overflow: hidden;
+
+			// transform: translateZ(0);			
+			transition: transform .4s, height .4s;
+
+			transition-timing-function: ease-in-out;
+			display: flex;
+			flex-direction: column;
+			&.ng-enter {
+				
+				animation: flashIn .5s;
+				
+				> .feed_card {
+					
+				}
+			}
+			&.ng-leave {
+				animation: none;
+				transition: 0s;
+			}
+			
+		}
+		.feed_card {
+					
+
+			$h: $feed_card_h;
+			width: 100%;
+			display: block;
+			margin-bottom: 10px;
+			padding: 0 10px 0 5px;
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+			color: $tinted_font_light;
+			background: transparentize($white, 0.95);
+			border-radius: 3px;   
+			height: 100%;
+
+			transform: translateZ(0);
+			.particles {
+				@include absolute(0,0,0,0);
+				.particle {
+					bottom: 0;
+					left: 0;
+				}
+				overflow: hidden;
+			}
+			.left_col, .right_col {
+				flex-shrink: 0;
+				position: relative;
+				height: 100%;
+			}
+			.right_col {				
+				margin-left: 10px;	
+				flex-grow: 1;						
+			}
+			.right_col_in {
+				@include absolute(0,0,0,0);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+			.item_thumb {
+				$s: $h;
+				width: $s;
+				height: 50%;
+				transform: translateY(85%);
+				// padding: 10px;
+				background-origin: content-box;
+			}
+			.rarity_bulb {
+				@include absolute(10px,10px);
+			}
+			.source_logo {
+				@extend .bg-image;
+				@include absolute(null, 5px,4px);
+				width: 24px;
+				height: 20px;				
+				opacity: 0.75;
+				z-index: 1;
+				cursor: pointer;
+				&:hover {
+					opacity: 1;
+				}
+				&.wax_source {
+					background-image: url("../img/wax_logo.png");
+					width: 32px;
+					height: 14px;
+				}
+				&.myunbox_source {
+					background-image: url("../img/logo_small.png");
+				}
+			}
+			.rarity_glow {
+				@include absolute(0,0,0,0);
+				opacity: 0.2;
+				border-radius: inherit;
+			}
+			.price {
+				@include absolute(10px,null,null,10px);
+				font-size: 14px;
+				color: $white;
+				font-weight: 600;	
+				opacity: 0.9;
+				line-height: 0.5rem;
+				text-shadow: 1px 1px transparentize($bg_dark,0.2);	
+				z-index: 1;		
+			}
+			.wear {
+				text-transform: uppercase;
+				font-weight: 600;
+				opacity: 0.7;
+				font-size: 14px;
+			}
+			.avatar {
+				$s: 24px;
+				width: $s;
+				height: $s;
+				margin-right: 2px;
+			}
+			.item_data, .user_data {				
+				width: 100%;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				margin: 2px 0;
+			}
+			.item_data {
+				font-size: 0.8rem;
+        .name {
+          left: -4rem;
+          display: flex;
+          position: absolute;
+          z-index: 2;
+          top: 1.8rem;
+        }
+			}
+			.user_data {
+        padding-top: 1.5rem;
+				> * {
+					vertical-align: middle;
+				}
+			}
+
+			&.vgo_item {
+				.item_thumb {
+					padding: 0px;
+				}
+			}
+
+
+		}
+
+	} // cases_feed
+
+  .cases_stats {
+    margin-bottom: 10px;
+    .stat_head {
+      font-size: 14px;
+      color: $tinted_font;
+      font-weight: 500;
+      margin-bottom: 5px;
+      text-align: left;
+      opacity: 0.75;
+    }
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      padding: 1px 0; 
+      font-weight: 500;
+      num {
+        background: transparentize($white, 0.95);
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-size: 14px;
+        color: transparentize($white,0.15);
+      }
+    }
+  }
+
+} // end battles_view
+
+
+
+
+
+
+
+

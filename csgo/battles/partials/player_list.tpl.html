@@ -1,0 +1,10 @@
+<div class="bet_items_input" uib-tooltip="{{tooltip}}" tooltip-append-to-body="true" tooltip-enable="!!showTooltip">
+  <div class="items_holder">
+    <div class="thumb_wrap" ng-repeat="player in game.players" title="{{player.name}}">
+      <div class="thumb_wrap" context-menu="!!player.id" type="person" data="player"> 
+        <div class="item_thumb" avatar="player"></div>
+      </div>
+      <img src="/img/vs_32.png" alt="" class="vs_icon" ng-if="($parent.game.mode === 'ffa' && $parent.game.players.length > $index + 1) || ($parent.game.mode === 'team' && $parent.game.players.length / ($index+1) === 2)"/>
+    </div>
+  </div>
+</div>

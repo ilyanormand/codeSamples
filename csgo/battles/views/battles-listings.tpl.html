@@ -1,0 +1,227 @@
+<!--<h1 translate="battles.title"></h1>-->
+<!-- <script id="firstDialogId" type="text/ng-template">
+      
+ 
+
+ 
+
+
+</script> -->
+<div class="listings_view">
+	<!--<p class="desc" translate="battles.desc"></p>-->
+
+	<!-- Step 1 HTML Start-->
+	
+
+	<div class="battles-listing create_placeholder typical_history_listing nohead" ng-hide="createListingToggle">	
+
+		<div class="out-of-service" ng-if="$root.sys.system.battles === false">
+			{{"battles.out-of-service" | translate}}
+		</div>
+
+
+
+		<div class="inline-content create-head">
+			<div class="typical_dropdown_wrapper">
+				<div class="call_to_action flex">
+					<span>{{'battles.pick_mode' | translate}}</span>
+					<div class="question_tip clickable mx-1" uib-tooltip-html="gameModeTooltip" tooltip-placement="bottom">?</div>
+				</div>
+				<div class="dropdown typical_dropdown">
+					<button class="input_field" type="button" id="playersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<div class="player_selection player-sctn" player-list game="selectedMode" show-tooltip="true"></div>
+						<span svg-icon="ico-down-arrow"></span>
+					</button>
+
+					<ul class="dropdown-menu" aria-labelledby="playersDropdown">	      	
+						<li ng-repeat="playerSelection in playerSelections" ng-click="setPlayerSelection(playerSelection)">
+							<div class="player-sctn player_selection" player-list game="playerSelection" show-tooltip="true"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- <div class="call_to_action">{{'battles.cases' | translate}}</div> -->
+			<div class="cases-sctn " title="{{'battles.add_cases' | translate}}" cases-list items="selectedCases" show-add="true" add="openCaseSelect()" limit="5">
+
+			</div>		
+			
+			<div class="flex flex-column">
+				<div class="flex checkbox-container">
+					<div class="round_switch light mt-2 mb-2 px-2 flex" ng-class="{active:private}" ng-click="togglePrivate()" uib-tooltip="{{'battles.private_expl' | translate}}" tooltip-append-to-body="true" tooltip-placement="bottom">
+						<div class="slider"></div>     
+						<span>{{'battles.private' | translate}}</span>
+					</div>
+					<div class="round_switch light mt-2 mb-2 px-2 flex" ng-class="{active:jinxed}" ng-click="toggleJinxed()" uib-tooltip="{{'battles.jinxed_expl' | translate}}" tooltip-append-to-body="false" tooltip-placement="bottom">
+						<div class="slider"></div>     
+						<span>{{'battles.jinxed' | translate}}</span>
+						<div class="jinxed" ng-class="{active: jinxed}"></div>
+					</div>
+				</div>
+				<div class="buttons-sctn mt-2">
+					<button class="button submit_button" 
+						ng-hide="createListingToggle" 
+						ng-loading="glob.createInProgress"
+						ng-disabled="glob.createInProgress"
+						title="{{'battles.create_tt' | translate}}"
+						ng-click="instantCreate()"
+						type="button">{{'app.create' | translate}} 
+						<span ng-if="selectedCases.length > 0">{{'battles.for' | translate }} {{getCost() | number: 2}}</span>
+					</button>
+				</div>
+			</div>	
+		</div>		
+					
+	</div>
+		
+	
+	<!-- Step 1 HTML End-->
+
+
+
+	
+	
+	<div class="typical_tabs">
+		<div active-tab="view == 'listings'" ng-click="view = 'listings'" class="tab">{{ 'battles.listings' | translate}}</div>
+		<div active-tab="view == 'history'" ng-click="view = 'history'" class="tab">{{ 'battles.history' | translate}}</div>
+		<div active-tab="view == 'mylistings'" ng-click="$parent.view = 'mylistings'" class="tab" ng-if="myListings.length">{{ 'battles.mylistings' | translate}}</div>
+	</div>
+
+
+
+
+
+	<div class="filters" ng-show="view == 'listings'">
+
+		<div class="typical_dropdown_wrapper price_range_filter">
+		    <div class="prefix" svg-icon="ico-filter"></div>
+
+		    <div class="dropdown typical_dropdown">
+
+		      <button class="input_field" type="button" id="clashFiltersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		        <span ng-if="filter.priceRange.tag">{{filter.priceRange.tag | translate}}</span>
+		        <span ng-if="!filter.priceRange.tag"><num>{{filter.priceRange.limits[0] | number:2}} - {{filter.priceRange.limits[1] | number:2}}</num></span>
+		        <span svg-icon="ico-down-arrow"></span>
+		      </button>
+
+		      <ul class="dropdown-menu" aria-labelledby="historyFiltersDropdown">	      	
+		        <li ng-repeat="range in priceRanges" ng-click="filter.priceRange = range">
+		        	<span ng-if="range.tag">{{range.tag | translate}}</span>
+		        	<span ng-if="!range.tag"><num>{{range.limits[0] | number:2}} - {{range.limits[1] | number:2}}</num></span>
+		        </li>
+		      </ul>
+		    </div>
+		</div>
+
+		<div svg-icon="ico-desc" class="sort_order_button" title="{{'modals.deposit.sort-order' | translate}}" ng-class="filter.order" ng-click="filter.order = filter.order == 'desc' ? 'asc' : 'desc'"></div>
+	</div>
+	
+
+
+
+
+
+
+
+
+	
+	<div ng-show="view == 'listings' || view == 'mylistings'" class="listings" ng-class="{mylistings:view=='mylistings'}">
+		<div class="no_data_placeholder inflow" ng-if="!listings.length && !glob.getcurrentInProgress">
+			<any translate="battles.no-listings"></any>
+		</div>
+
+		<div class="load-wrapper" ng-if="glob.getcurrentInProgress" ng-include="'app/partials/loader_spinner.tpl.html'">			
+		</div>
+
+		<div class="listings_list angular-animate" ng-if="!glob.getcurrentInProgress">
+			<div class="battles-listing-wrapper battles-active-listing angular-animate" 
+				ng-repeat="listing in listings | orderBy:'valueOf()':filter.order=='desc':listingComparator"
+				ng-include="'battles/views/battles-listing-partial.tpl.html'"
+				ng-show="([listing] | filter:filterListings).length > 0"> 	
+
+				
+			</div>		
+		</div>
+
+		
+	</div>
+
+
+	<div class="coinHistory" ng-show="view == 'history'">
+		<div class="load-wrapper" ng-if="glob.gethistoryInProgress" ng-include="'app/partials/loader_spinner.tpl.html'">			
+		</div>
+
+		<div class="listings_list angular-animate" ng-if="!glob.gethistoryInProgress">
+			<div class="battles-listing-wrapper battles-history-listing angular-animate" 
+				ng-repeat="listing in history | limitTo:15"
+				ng-include="'battles/views/battles-listing-partial.tpl.html'"
+				ng-init="templ_type='history'"> 	
+
+				
+			</div>	
+		</div>
+
+		
+		
+	</div>
+	<div class="cases_sidebar">
+		<div class="cases_stats alltime_stats">
+	
+			<div class="stat_head">All-Time Stats</div>
+			<div class="stat">
+				<num>{{stats.all.count || 0}}</num>
+				<span class="title">Cases Opened</span>
+				
+			</div>
+			<div class="stat">
+				<num>${{stats.all.totalWon || 0 | number:2}}</num>
+				<span class="title">Skins Won</span>
+				
+			</div>
+		</div>	
+	
+		<div class="cases_feed alltime_feed">			
+	
+			<div class="feed_card_wrapper angular-animate" ng-if="topOpening">
+				
+				<div class="feed_card" feed-card item="topOpening">
+							
+				</div>
+			</div>		
+			
+		</div>
+	
+		<div class="cases_stats daily_stats">
+			<div class="stat_head">Daily Stats</div>
+			<div class="stat">
+				<num>{{stats.td.count || 0}}</num>
+				<span class="title">Cases Opened</span>
+				
+			</div>
+			<div class="stat">
+				<num>${{stats.td.total || 0 | number:2}}</num>
+				<span class="title">Skins Won</span>
+				
+			</div>				
+			
+		</div>
+	
+		<!-- <span>Recent Wins:</span> -->
+	
+		<div class="cases_feed daily_feed">
+			
+	
+			<div class="feed_card_wrapper angular-animate" ng-repeat="item in caseHistory">
+				
+				<div class="feed_card" feed-card item="item">
+							
+				</div>
+			</div>			
+			
+		</div>
+	
+	</div>		
+</div>
+
+<footer></footer>
+
